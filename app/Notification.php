@@ -5,28 +5,26 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Notification extends Model
-{
-    public $timestamps = false;
-    
+{   
     protected $guarded = [];
 
     public function scopeGetNotif($query)
     {
-        return $query->take(3)->latest('date')->get();
+        return $query->take(3)->oldest('read_at')->get();
     }
 
     public function scopeGetTotal($query)
     {
-        return $query->where('status', 0)->count();
+        return $query->whereNull('read_at')->count();
     }
 
     public function scopeGetNotifNew($query)
     {
-        return $query->where('status', 0);
+        return $query->whereNull('read_at');
     }
 
     public function scopeGetNotifOld($query)
     {
-        return $query->where('status', 1);
+        return $query->whereNotNull('read_at');
     }
 }

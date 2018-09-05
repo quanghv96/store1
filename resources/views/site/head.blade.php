@@ -19,6 +19,7 @@
     <base href="{{ asset('') }}">
     <!-- CSS Style -->
     <link rel="stylesheet" type="text/css" href="{{ asset('source/bower_components/library/site/version4/css/styles.css') }}" media="all">
+    <link rel="stylesheet" type="text/css" href="{{ asset('source/bower_components/library/site/version4/css/toastr.min.css') }}" media="all">
     <link rel="stylesheet" type="text/css" href="{{ asset('source/bower_components/library/site/version4/css/star-rating.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('source/bower_components/library/backend/admin/css/select2.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('source/bower_components/library/backend/admin/css/jquery-confirm.min.css') }}"/>
@@ -42,7 +43,7 @@
                 {!! Form::close() !!}
             </div>
         </li>
-        @foreach($category as $row)
+        @foreach($categoryS as $row)
             @if($row->parent_id == 0 && count($row->subCategory) > 0)
                 <li>
                     <a href="#">{{ $row->name }}</a>
@@ -104,7 +105,7 @@
                                     </div>
                                     <div class="mega-menu-category">
                                         <ul class="nav">
-                                            @foreach($category as $row)
+                                            @foreach($categoryS as $row)
                                                 @if($row->parent_id == 0 && count($row->subCategory) > 0)
                                                     <li>
                                                         <a href="#">{{ $row->name }}</a>

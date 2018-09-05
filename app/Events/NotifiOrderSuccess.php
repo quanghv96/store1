@@ -15,17 +15,15 @@ class NotifiOrderSuccess implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $info;
-    public $date;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($info, $date)
+    public function __construct($info)
     {
         $this->info = $info;
-        $this->date = $date;
     }
 
     /**
@@ -36,5 +34,15 @@ class NotifiOrderSuccess implements ShouldBroadcast
     public function broadcastOn()
     {
         return new Channel('notifi-order');
+    }
+
+    public function broadcastWith()
+    {
+        return [
+            'id' => $this->info->id,
+            'link' => url('/admin/' . $this->info->id . '/notification.html'),
+            'title' => $this->info->data['message'],
+            'date' => $this->info->created_at->diffForHumans()
+        ];
     }
 }

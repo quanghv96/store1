@@ -18,14 +18,6 @@ use App\Events\OrderEvent;
 
 class HomeController extends Controller
 {
-    //
-	public function test()
-	{
-		event(new OrderEvent("ok"));
-		
-		return "okk";
-	}
-
 	public function index()
 	{
 		$data = array(

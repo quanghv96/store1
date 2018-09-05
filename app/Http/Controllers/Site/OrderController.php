@@ -12,26 +12,16 @@ use App\Order;
 use App\OrderDetail;
 use App\Events\OrderEvent;
 use App\Events\NotifiOrderSuccess;
-use App\Notification;
 use App\Events\SendMailOrder;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\OrderSuccess;
 
 class OrderController extends Controller
 {
     private function notifiOrderSuccess($order)
     {
-        $info = array();
-        $info['title'] = 'Đơn hàng mới';
-        $info['link'] = url('/admin/' . $order->id . '/notification.html');
-        $date = date('d/m:H-i-s', strtotime($order->created_at));
-        $info['date'] = $order->created_at;
-        $info['id_order'] = $order->id;
-        $not = Notification::create($info);
-        $not->update([
-            'link' => url('/admin/' . $not->id . '/notification.html')
-        ]);
-        $info['link'] = $not->link;
-        $info['id'] = $not->id;
-        event(new NotifiOrderSuccess($info, $date));
+        $order->notify(new OrderSuccess());
+        event(new NotifiOrderSuccess($order->notifications->first()));
     }
 
     private function sendMailOrder($id, $order)

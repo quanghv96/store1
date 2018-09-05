@@ -14,7 +14,8 @@ class AddForeignKeysToOrdersTable extends Migration {
 	{
 		Schema::table('orders', function(Blueprint $table)
 		{
-			$table->foreign('user_id')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');
+			$table->foreign('user_id')->references('id')->on('users')
+				->onUpdate('CASCADE')->onDelete('CASCADE');
 		});
 	}
 

@@ -7,13 +7,13 @@
                         <div class="result">
                         @foreach($notification as $row)
                             <li>
-                                @if($row->status == 0)
-                                    <a id="{{ __('new_') }}{{ $row->id }}" href="{{ $row->link }}" title="" class="sAdd not_view new">
+                                @if($row->read_at == null)
+                                    <a id="{{ __('new_') }}{{ $row->id }}" href="{{ route('notif.view', ['id' => $row->id]) }}" title="" class="sAdd not_view new">
                                 @else
-                                    <a id="{{ __('new_') }}{{ $row->id }}" href="{{ $row->link }}" title="" class="sAdd not_view">
+                                    <a id="{{ __('new_') }}{{ $row->id }}" href="{{ route('notif.view', ['id' => $row->id]) }}" title="" class="sAdd not_view">
                                 @endif
-                                    {{ $row->title }}
-                                <br>{{ date('d/m H:i:s', strtotime($row->date)) }}
+                                    {{ json_decode($row->data, true)['message'] }}
+                                <br>{{ $row->created_at->diffForHumans() }}
                                 </a>
                             </li>
                         @endforeach

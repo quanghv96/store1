@@ -31,11 +31,7 @@ class AdminController extends Controller
     public function update(CustomerUpdateRequest $request, $id)
     {
         $admin = User::findOrFail($id);
-        if ($request->password != '') {
-            $request->merge([
-                'password' => bcrypt($request->password),
-            ]);
-        } else{
+        if ($request->password == '') {
             $request->merge([
                 'password' => $admin->password,
             ]);
@@ -70,7 +66,6 @@ class AdminController extends Controller
     {
        	if (Auth::user() && Auth::user()->level == 1) {
             Auth::logout();
-            Session::flush();
         }
 
         return redirect('admin/login.html');

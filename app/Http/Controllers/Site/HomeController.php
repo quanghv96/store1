@@ -56,7 +56,7 @@ class HomeController extends Controller
             return back();
         }
         try {
-            $product = Product::search($key, intval($request->category_id))->get();
+            $product = Product::whereCate(intval($request->category_id))->search($key)->get();
         } catch (\Illuminate\Database\QueryException $e) {
             return view('site.404');
         }

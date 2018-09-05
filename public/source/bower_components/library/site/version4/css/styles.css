@@ -10024,3 +10024,16 @@ div.tt-menu{
 	font-size: 25px !important;
 	margin-top: 7px !important;
 }
+.news-content{
+	height: 3em !important; 
+	overflow: hidden !important;
+}
+.top-sidebar{
+	margin-top: -10px !important;
+}
+li.all{
+	text-align: center;
+}
+li a.new{
+	color: yellow;
+}

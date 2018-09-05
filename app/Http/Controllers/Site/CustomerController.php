@@ -38,7 +38,6 @@ class CustomerController extends Controller
     {
         if (Auth::check()) {
             Auth::logout();
-            Session::flush();
         }
 
         return redirect()->route('site.home.index');

@@ -34,25 +34,17 @@ class CartController extends Controller
 
     public function index(Request $request)
     {
-        if ($this->checkLogIn()) {
-            list($addresses, $cart, $total, $product_segest) = $this->getInfo();
+        list($addresses, $cart, $total, $product_segest) = $this->getInfo();
 
-            return view('site.cart.view', compact('cart', 'product_segest', 'total', 'addresses'));
-        } else {
-            return redirect()->route('site.customer.login')
-                ->with('message', 'Vui lòng đăng nhập để thực hiện chức năng này');
-        }
-        
+        return view('site.cart.view', compact('cart', 'product_segest', 'total', 'addresses'));
     }
     public function checkOut(){
-        if ($this->checkLogIn()) {
-            list($addresses, $cart, $total, $product_segest) = $this->getInfo(); 
-            return view('site.cart.checkout', compact('cart', 'product_segest', 'total', 'addresses'));
+       
+        list($addresses, $cart, $total, $product_segest) = $this->getInfo(); 
 
-        } else {
-            return redirect()->route('site.customer.login')
-                ->with('message', 'Vui lòng đăng nhập để thực hiện chức năng này');
-        }
+        return view('site.cart.checkout', compact(
+            'cart', 'product_segest', 'total', 'addresses'
+        ));
     }
 
     public function delete(Request $request)
@@ -73,7 +65,7 @@ class CartController extends Controller
             $i++;
         }
 
-        return back();
+        return redirect()->route('site.cart.view');
     }
 
     private function checkLogIn()
@@ -83,33 +75,36 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
-        $id = $request->id;
-        $product = Product::find($id);
-        if ($product == null){
-            return response()->json("error");
-        }
-        if ($product->discount > 0)
-            $price = $product->price - $product->discount;
-        else
-            $price = $product->price;
-        Cart::instance(Auth::user()->id)->add(
-            [
-                'id' => $id, 
-                'name' => $product->name, 
-                'qty' => 1, 
-                'price' => $price,
-                'options' => [
-                    'avatar' => $product->avatar
+        if ($this->checkLogIn()) {
+            $id = $request->id;
+            $product = Product::find($id);
+            if ($product == null){
+                return response()->json("error");
+            }
+            if ($product->discount > 0)
+                $price = $product->price - $product->discount;
+            else
+                $price = $product->price;
+            Cart::instance(Auth::user()->id)->add(
+                [
+                    'id' => $id, 
+                    'name' => $product->name, 
+                    'qty' => 1, 
+                    'price' => $price,
+                    'options' => [
+                        'avatar' => $product->avatar
+                    ]
                 ]
-            ]
-        );
-        return response()->json('ok');
+            );
+            return response()->json('ok');
+        } else {
+            return response()->json(null);
+        }
     }
 
     public function add(Request $request)
     {
-        if ($this->checkLogIn()) 
-        {
+        if ($this->checkLogIn()) {
             $id = $request->id;
             $value = intval($request->value); 
             $product = Product::find($id);

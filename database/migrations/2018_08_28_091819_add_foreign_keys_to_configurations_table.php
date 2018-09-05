@@ -14,7 +14,8 @@ class AddForeignKeysToConfigurationsTable extends Migration {
 	{
 		Schema::table('configurations', function(Blueprint $table)
 		{
-			$table->foreign('product_id')->references('id')->on('products')->onUpdate('CASCADE')->onDelete('CASCADE');
+			$table->foreign('product_id')->references('id')->on('products')
+				->onUpdate('CASCADE')->onDelete('CASCADE');
 		});
 	}
 

@@ -50,8 +50,8 @@ $(window).on('load', function () {
                 }
             },
             error: function (request, status, error) {
-                alert(request.responseText);
-                location.reload();
+                showToast('', request.responseText, 'error');
+                reLoad();
             }
         });
       
@@ -61,7 +61,7 @@ $(window).on('load', function () {
         e.preventDefault();
         $('.confirm-order').submit();
     });
-    $('.delete').click(function (e) {
+    $(document).on('click', '.delete', function (e) {
         e.preventDefault();
         id = $(this).attr('value');
         if( $(this).hasClass('category')) {
@@ -94,17 +94,11 @@ $(window).on('load', function () {
                                                 table.row(".row_" + id).remove().draw();
                                                 var str = $('#total').html() -1;
                                                 $('#total').html(str);
-                                                $.dialog({
-                                                    theme: 'material',
-                                                    title: '',
-                                                    content: 'Xóa thành công',
-                                                    animationSpeed: 300,
-                                                    backgroundDismiss: true,
-                                                });
+                                                showToast('', 'Xóa thành công', 'success');
                                             },
                                             error: function (request, status, error) {
-                                                alert(request.responseText);
-                                                location.reload();
+                                                showToast('', request.responseText, 'error');
+                                                reLoad();
                                             }
                                         });
                                     }
@@ -135,17 +129,11 @@ $(window).on('load', function () {
                                                 });
                                                 var str = $('#total').html() - data.length;
                                                 $('#total').html(str);
-                                                $.dialog({
-                                                    theme: 'material',
-                                                    title: '',
-                                                    content: 'Xóa thành công',
-                                                    animationSpeed: 300,
-                                                    backgroundDismiss: true,
-                                                });
+                                                showToast('', 'Xóa thành công', 'success');
                                             },
                                             error: function (request, status, error) {
-                                                alert(request.responseText);
-                                                location.reload();
+                                                showToast('', request.responseText, 'error');
+                                                reLoad();
                                             }
                                         });
                                     }
@@ -163,7 +151,7 @@ $(window).on('load', function () {
                             buttons: {
                                 ok: {
                                     btnClass: 'btn-blue',
-                                    action:function () {
+                                    action: function () {
                                         $.ajax({
                                             type: "post",
                                             url: link,
@@ -175,17 +163,11 @@ $(window).on('load', function () {
                                                 table.row(".row_" + id).remove().draw();
                                                 var str = $('#total').html() -1;
                                                 $('#total').html(str);
-                                                $.dialog({
-                                                    theme: 'material',
-                                                    title: '',
-                                                    content: 'Xóa thành công',
-                                                    animationSpeed: 300,
-                                                    backgroundDismiss: true,
-                                                });
+                                                showToast('', 'Xóa thành công', 'success');
                                             },
                                             error: function (request, status, error) {
-                                                alert(request.responseText);
-                                                location.reload();
+                                                showToast('', request.responseText, 'error');
+                                                reLoad();
                                             }
                                         });
                                     }
@@ -199,8 +181,8 @@ $(window).on('load', function () {
                     }
                 },
                 error: function (request, status, error) {
-                    alert(request.responseText);
-                    location.reload();
+                    showToast('', request.responseText, 'error')
+                    reLoad();
                 }
             });
         } else {
@@ -224,18 +206,12 @@ $(window).on('load', function () {
                                         table.row(".row_" + id).remove().draw();
                                         var str = $('#total').html() -1;
                                         $('#total').html(str);
-                                        $.dialog({
-                                            theme: 'material',
-                                            title: '',
-                                            content: 'Xóa thành công',
-                                            animationSpeed: 100,
-                                            backgroundDismiss: true,
-                                        });
+                                        showToast('', 'Xóa thành công', 'success');
                                     }
                                 },
                                 error: function (request, status, error) {
-                                    alert(request.responseText);
-                                    location.reload();
+                                    showToast('', request.responseText, 'error');
+                                    reLoad();
                                 }
                             });
                         }
@@ -247,7 +223,7 @@ $(window).on('load', function () {
         }
     });
 
-    $('#delMul').click(function (e) {
+    $(document).on('click', '#delMul', function (e) {
         e.preventDefault();
         var allVals = [];
         $(".check-del:checked").each(function() {
@@ -278,19 +254,12 @@ $(window).on('load', function () {
                                     allVals: allVals
                                 },
                                 success:function (data) {
-                                    if(data =='ok'){
+                                    if (data =='ok'){
                                         if ($('#delMul').hasClass('order-del')) {
                                             $.each(allVals, function( index, value ) {
                                                 $('table tr.row_' + value + ' td:nth-child(1)').html('');
                                                 var str = '<span class="reject">Hủy bỏ</span>';
                                                 $('table tr.row_' + value + ' td:nth-child(7)').html(str);
-                                            });
-                                            $.dialog({
-                                                theme: 'material',
-                                                title: '',
-                                                content: 'Xóa thành công',
-                                                animationSpeed: 100,
-                                                backgroundDismiss: true,
                                             });
                                         } else {
                                             $.each(allVals, function( index, value ) {
@@ -301,27 +270,18 @@ $(window).on('load', function () {
                                                 str[i] = str[i]-allVals.length;
                                             }
                                             $('#total').html(str[0]);
-                                            $.dialog({
-                                                theme: 'material',
-                                                title: '',
-                                                content: 'Xóa thành công',
-                                                animationSpeed: 100,
-                                                backgroundDismiss: true,
-                                            });
-                                            if (str[0] == "0") {
-                                                if ($('#delMul').hasClass('orderDetail'))
-                                                    window.location = base + '/admin/order/index.html';
-                                                if ($('#delMul').hasClass('reply-del'))
-                                                    window.location = base + '/admin/comment/index.html';
-                                            }
+                                        }
+                                        showToast('', 'Xóa thành công', 'success');
+                                        if (str[0] == "0" && $('#delMul').hasClass('reply-del')) {
+                                            redirectTo(base + '/admin/comment/index.html');
                                         }
                                     } else {
                                         return false;
                                     }
                                 },
                                 error: function (request, status, error) {
-                                    alert(request.responseText);
-                                    location.reload();
+                                    showToast('', request.responseText, 'error');
+                                    reLoad();
                                 }
                             });
                         }

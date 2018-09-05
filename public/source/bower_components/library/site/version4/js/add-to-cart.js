@@ -18,20 +18,21 @@ $(window).on('load', function() {
             data: {
             },
             dataType: "json", 
-            success:function (data) {
-                if(parseInt(data) >0){
+            success: function (data) {
+                if (parseInt(data) >0) {
                     var form = document.getElementById("form-checkout");
-                    if(form.checkValidity()) {
+                    if (form.checkValidity()) {
                         form.submit();
-                    }else{
-                        alert('Vui lòng chọn địa chỉ giao hàng');
+                    } else {
+                        showToast('', 'Vui lòng chọn địa chỉ giao hàng', 'warning');
                     }
-                }else{
-                    alert('Đơn hàng trống, vui lòng thêm sản phẩm để thực hiện chức năng này');
+                } else {
+                    showToast('', 'Đơn hàng trống, vui lòng thêm sản phẩm để thực hiện chức năng này', 'warning');
                 }
             },
             error: function (request, status, error) {
-                alert(error);
+                showToast('', 'Không thể đặt hàng được', 'error');
+                // reLoad();
             }
         });
                
@@ -48,22 +49,12 @@ $(window).on('load', function() {
             },
             dataType: "json", 
             success: function (data) {
-                $.confirm({
-                    theme: 'material',
-                    title: '',
-                    content: "Xóa sản phẩm khỏi wishlist thành công",
-                    animationSpeed: 100,
-                    autoClose: 'ok|1000',
-                    buttons: {
-                        ok:{
-                        }
-                    },
-                    backgroundDismiss: true,
-                });
-                location.reload();
+                showToast('', 'Xóa sản phẩm khỏi wishlist thành công', "success");
+                reLoad();
             },
             error: function (request, status, error) {
-                alert(error);
+                showToast('', 'Không thể xóa sản phẩm khỏi wishlist được', "error");
+                reLoad();
             }
         });
     });
@@ -84,30 +75,22 @@ $(window).on('load', function() {
                     window.location = "404.html";
                 } else {
                     var content;
+                    var type = "warning";
                     if (data == 'exist') {
                         content = "Sản phẩm này có trong wishlist rồi";
                     } else if (data == "fail") {
                         content = "Vui lòng đăng nhập để thực hiện chức năng này";
                     } else {
                         content = "Thêm vào wishlist thành công";
+                        type = "success";
                         $('.wl_sl').html(data);
                     }
-                    $.confirm({
-                        theme: 'material',
-                        title: '',
-                        content: content,
-                        animationSpeed: 100,
-                        autoClose: 'ok|1000',
-                        buttons: {
-                            ok:{
-                            }
-                        },
-                        backgroundDismiss: true,
-                    });
+                    showToast('', content, type);
                 }
             },
             error: function (request, status, error) {
-                alert(error);
+                showToast('', 'Không thể thêm sản phẩm vào wishlist được', "error");
+                reLoad();
             }
         });
     });
@@ -120,23 +103,13 @@ $(window).on('load', function() {
             data: {
             },
             dataType: "json", 
-            success:function (data) {
-                $.confirm({
-                    theme: 'material',
-                    title: '',
-                    content: "Xóa sản phẩm khỏi so sánh thành công",
-                    animationSpeed: 100,
-                    autoClose: 'ok|1000',
-                    buttons: {
-                        ok:{
-                        }
-                    },
-                    backgroundDismiss: true,
-                });
-                location.reload();
+            success: function (data) {
+                showToast('', 'Xóa sản phẩm khỏi so sánh thành công', "success");
+                reLoad();
             },
             error: function (request, status, error) {
-                alert(error);
+                showToast('', 'Không thể xóa sản phẩm trong so sánh được', "error");
+                reLoad();
             }
         });
     });
@@ -151,24 +124,27 @@ $(window).on('load', function() {
                 value: value
             },
             dataType: "json", 
-            success:function (data) {
+            success: function (data) {
                 if (data == "error"){
                     window.location = "404.html";
                 } else {
                     var content;
+                    var type = "warning";
                     if (data == 'full') {
                         content = "Vượt quá giới hạn so sánh";
-                    }else if (data == 'exist') {
+                    } else if (data == 'exist') {
                         content = "Sản phẩm này có trong so sánh rồi"
-                    }else {
+                    } else {
                         content = "Thêm vào so sánh thành công";
+                        type = "success";
                         $('#so-luong').html(data);
                     }
-                    alert(content);
+                    showToast('', content, type);
                 }
             },
             error: function (request, status, error) {
-                alert(error);
+                showToast('', 'Không thể thêm sản phẩm vào so sánh được', "error");
+                reLoad();
             }
         });
 
@@ -183,26 +159,18 @@ $(window).on('load', function() {
             },
             dataType: "json", 
             success:function (data) {
-                if(data == "error") {
+                if (data == "error") {
                     window.location = "404.html";
+                } else if (data == 'ok') {
+                    showToast('', 'Thêm sản phầm vào giỏ hàng thành công', 'success');
+                    reLoad();
                 } else {
-                    $.confirm({
-                        theme: 'material',
-                        title: '',
-                        content: 'Thêm vào giỏ hàng thành công',
-                        animationSpeed: 100,
-                        autoClose: 'ok|1000',
-                        buttons: {
-                            ok:{
-                            }
-                        },
-                        backgroundDismiss: true,
-                    });
-                    location.reload();
+                    showToast('', 'Vui lòng đăng nhập để thực hiện được chức năng này', 'warning');
                 }
             },
             error: function (request, status, error) {
-                alert(error);
+                showToast('', 'Không thể thêm sản phẩm vào giỏ hàng được', "error");
+                reLoad();
             }
         });
 
@@ -217,7 +185,7 @@ $(window).on('load', function() {
         var value = 1;
         if ($('.btn-cart').hasClass('multiple')) {
             if ($('#qty').val() == '') {
-                alert('Vui lòng chọn số lượng');
+                showToast('', 'Vui lòng chọn số lượng', 'warning');
                 return false;
             } else {
                 value = $('#qty').val();
@@ -260,30 +228,14 @@ $(window).on('load', function() {
                     '<button class="btn-checkout" title="Checkout"'+
                     'type="button"><span>Checkout</span></button></div></div>';
                     $('#cart-content').html(str);
-                    $.confirm({
-                        theme: 'material',
-                        title: '',
-                        content: 'Thêm vào giỏ hàng thành công',
-                        animationSpeed: 100,
-                        autoClose: 'ok|1000',
-                        buttons: {
-                            ok:{
-                            }
-                        },
-                        backgroundDismiss: true,
-                    });
+                    showToast('', 'Thêm vào giỏ hàng thành công', 'success');
                 } else {
-                    $.dialog({
-                        theme: 'material',
-                        title: '',
-                        content: 'Vui lòng đăng nhập để thực hiện được chức năng này',
-                        animationSpeed: 100,
-                        backgroundDismiss: true,
-                    });
+                    showToast('', 'Vui lòng đăng nhập để thực hiện được chức năng này', 'warning');
                 }
             },
             error: function (request, status, error) {
-                alert(error);
+                showToast('', 'Không thể thêm sản phẩm vào giỏ hàng được', "error");
+                reLoad();
             }
         });
         
@@ -309,22 +261,12 @@ $(window).on('load', function() {
                                 rowId: rowId
                             },
                             success:function (data) {
-                            	$.confirm({
-			                        theme: 'material',
-			                        title: '',
-			                        content: 'Xóa thành công',
-			                      	animationSpeed: 100,
-			                      	autoClose: 'ok|1000',
-			                      	buttons: {
-			                      	 	ok:{
-			                      		}
-			                      	},
-			                        backgroundDismiss: true,
-			                    });
-                                location.reload();
+                            	showToast('', 'Xóa thành công', 'success');
+                                redirectTo(base + 'cart/view.html');
 			             	},
                             error: function (request, status, error) {
-                                alert(error);
+                                showToast('', 'Không thể xóa được', "error");
+                                reLoad();
                             }
                         });
                     }

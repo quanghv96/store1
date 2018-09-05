@@ -9,13 +9,13 @@ class Comment extends Model
     // lấy ra product được comment
     public function product() 
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class)->withTrashed();
     }
 
     //
     public function user() 
     {
-        return $this->belongsTo(User::class)->withTrashed();;
+        return $this->belongsTo(User::class)->withTrashed();
     }
     //
     public function replies()

@@ -110,17 +110,17 @@
                                 <div class="blog-inner">
                                     @foreach($news as $row)
                                         <div class="col-xs-12 col-sm-6 blog-preview_item">
-                                            <div class="entry-thumb jtv-blog-img-hover"><a href="blog_single_post.html"> <img alt="Blog" src="{{ url(config('app.newsUrl')) }}/{{ $row->avatar }}"> </a></div>
-                                            <h4 class="blog-preview_title"><a href="blog_single_post.html">{{ $row->title }}</a></h4>
+                                            <div class="entry-thumb jtv-blog-img-hover"><a href="{{ route('site.news.view', ['id' => $row->id]) }}"> <img alt="Blog" src="{{ url(config('app.newsUrl')) }}/{{ $row->avatar }}"> </a></div>
+                                            <h4 class="blog-preview_title"><a href="{{ route('site.news.view', ['id' => $row->id]) }}">{{ $row->title }}</a></h4>
                                             <div class="blog-preview_info">
                                                 <ul class="post-meta">
                                                     <li><i class="fa fa-user"></i>By <a href="#">admin</a></li>
                                                     <li><i class="fa fa-clock-o"></i><span class="day">{{ date("d", strtotime($row->created_at)) }} </span><span class="month">{{ date("M", strtotime($row->created_at)) }}</span></li>
                                                 </ul>
-                                                <div class="blog-preview_desc" style="height: 4em; overflow: hidden;">
+                                                <div class="blog-preview_desc news-content">
                                                     {!! $row->content !!}
                                                 </div>
-                                                <a class="read_btn" href="blog_single_post.html">Read More</a>
+                                                <a class="read_btn" href="{{ route('site.news.view', ['id' => $row->id]) }}">Read More</a>
                                             </div>
                                         </div>
                                     @endforeach
@@ -131,7 +131,7 @@
                     <!-- End Latest Blog -->
                 </div>
                 <!-- Sidebar -->
-                <div class="col-left sidebar col-sm-4 col-xs-12 col-sm-pull-8 col-md-3 col-md-pull-9" style="margin-top: -10px">
+                <div class="top-sidebar col-left sidebar col-sm-4 col-xs-12 col-sm-pull-8 col-md-3 col-md-pull-9">
                     <div class="sidebar-banner">
                     {!! Form::open(['route' => 'site.home.search_mul', 'method' => 'get']) !!}
                         <div class="form-group div-input">

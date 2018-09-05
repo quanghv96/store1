@@ -98,6 +98,8 @@
 <script type="text/javascript" src="{{ asset('source/bower_components/library/site/version4/js/typeahead.bundle.js') }}"></script>
 <script type="text/javascript" src="{{ asset('source/bower_components/library/site/version4/js/add-to-cart.js') }}"></script>
 <script type="text/javascript" src="{{ asset('source/bower_components/library/site/version4/js/segest-search.js') }}"></script>
+<script type="text/javascript" src="{{ asset('source/bower_components/library/site/version4/js/toastr.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('source/bower_components/library/site/version4/js/add-toast.js') }}"></script>
 </body>
 <!-- Mirrored from htmlfabulous.justthemevalley.com/version4/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 03 May 2018 18:53:55 GMT -->
 </html>

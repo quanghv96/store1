@@ -8,6 +8,7 @@ return [
     'slideUrl' => 'upload/slide',
     'imageUrl' => 'upload/image',
     'slide_page' => 4,
+    'base_url' => 'localhost/store1/public',
     /*
     |--------------------------------------------------------------------------
     | Application Name

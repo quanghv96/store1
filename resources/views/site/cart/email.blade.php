@@ -2,7 +2,17 @@
 <html>
 <head>
 	<title>{{ __('Email') }}</title>
-	<link rel="stylesheet" type="text/css" href="{{ asset('source/bower_components/library/site/version4/css/bootstrap.min.css') }}" media="all">
+	<style type="text/css">
+		table {
+            border-collapse: collapse;
+        }
+
+        table td, th {
+            padding: 10px;
+            border: 1px solid rgb(233, 77, 28);
+            text-align: center;
+        }
+	</style>
 </head>
 <body>
 	<div class="container">
@@ -16,7 +26,7 @@
 		<h3>{{ __('Hóa đơn mua hàng') }}</h3>
 		<p>{{ __('Mã đơn hàng') }} : {{ $code }}</p>
 		<p>{{ __('Chi tiết đơn đặt hàng') }}</p>
-		<table border="1" cellpadding="0" class="table table-bordered table-hover">
+		<table>
 			<thead>
 				<tr>
 					<th>{{ __('Tên sản phẩm') }}</th>

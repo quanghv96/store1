@@ -198,7 +198,7 @@
                                                     <li><i class="fa fa-user"></i>By <a href="#">admin</a></li>
                                                     <li><i class="fa fa-clock-o"></i><span class="day">{{ date("d", strtotime($row->created_at)) }} </span><span class="month">{{ date("M", strtotime($row->created_at)) }}</span></li>
                                                 </ul>
-                                                <div class="blog-preview_desc" style="height: 4em; overflow: hidden;">
+                                                <div class="blog-preview_desc news-content">
                                                     {!! $row->content !!}
                                                 </div>
                                                 <a class="read_btn" href="{{ route('site.news.view', ['id' => $row->id]) }}">Read More</a>
@@ -212,7 +212,7 @@
                     <!-- End Latest Blog -->
                 </div>
                 <!-- Sidebar -->
-                <div class="col-left sidebar col-sm-4 col-xs-12 col-sm-pull-8 col-md-3 col-md-pull-9" style="margin-top: -10px">
+                <div class="top-sidebar col-left sidebar col-sm-4 col-xs-12 col-sm-pull-8 col-md-3 col-md-pull-9">
                     <div class="sidebar-banner">
                     {!! Form::open(['route' => 'site.home.search_mul', 'method' => 'get']) !!}
                         <div class="form-group div-input">

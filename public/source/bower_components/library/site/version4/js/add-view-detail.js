@@ -35,7 +35,8 @@ $(window).on('load', function(){
             	}
 	        },
             error: function (request, status, error) {
-                alert(error);
+                showToast('', 'Không thể xem chi tiết đơn đặt hàng được', "error");
+                reLoad();
             }
 	    });
     });

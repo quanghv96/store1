@@ -47,10 +47,10 @@ class NewsController extends Controller
      */
     public function store(NewsRequest $request)
     {
-        if ($request->hasFile('avatar')) {
-            $news['avatar'] = $this->addImage($request->file('avatar'), $this->getPath());
-            News::create($news);
-        }
+        $news = $request->except('avatar');
+        $news['avatar'] = $this->addImage($request->file('avatar'), $this->getPath());
+        News::create($news);
+
         return redirect()->route('news.index')->with('success', __('Thêm tin tức thành công'));
     }
 

@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class AdminLogin
+class CheckLoginSite
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,11 @@ class AdminLogin
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user() && Auth::user()->level == 1) {
+        if (Auth::check()) {
             return $next($request);
         }
 
-        return redirect()->route('admin.login');
+        return redirect()->route('site.customer.login')
+            ->with('message', __('Vui lòng đăng nhập để thực hiện chức năng này'));
     }
 }

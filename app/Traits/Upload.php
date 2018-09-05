@@ -8,7 +8,7 @@ trait Upload
     {
         do {
             $name = str_random(4) . '-' . $file->getClientOriginalName();
-        }while (
+        } while (
             file_exists(config($path) . '/' . $name)
         );
         $file->move(config($path), $name);
@@ -18,7 +18,7 @@ trait Upload
 
     public function removeImage($name, $path)
     {
-        if(file_exists(config($path) . '/' . $name))
+        if (file_exists(config($path) . '/' . $name))
             unlink(config($path) . '/' .$name);
     }
 }

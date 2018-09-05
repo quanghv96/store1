@@ -15,23 +15,24 @@ $(window).on('load', function() {
             },
             success: function(data) {
                	if ($.isEmptyObject(data)) {
-            		alert('Vui lòng đăng nhập');
+            		showToast('', 'Vui lòng đăng nhập để thực hiện chức năng này', 'warning');
             	} else {
             		if ($('#input-1').val() == 0){
-            			alert('Vui lòng chọn rate');
+            			showToast('', 'Vui lòng chọn rate', 'error');
             		}else {
             			$('.sub-review').submit();
             		}
             	}
 	        },
 	        error: function (request, status, error) {
-                alert(error);
+                showToast('', 'Không thể chọn rate được', 'error');
+                reLoad();
             }
 	    });
     });
     $('#add-comment').click(function(e) {
         e.preventDefault();
-        result = $(this);
+        result = $(this).parent();
         message = $('textarea').val();
         if (message != "") {
 	        product_id = $('#add-comment').attr('post');
@@ -43,42 +44,46 @@ $(window).on('load', function() {
 	                product_id: product_id,
 	                message: message,
 	            },
-	            success:function(data)
+	            success: function(data)
 	            {
 	            	if (data == "error") {
 	            		window.location = "404.html";
 		            } else if ($.isEmptyObject(data)) {
-	            		alert('Vui lòng đăng nhập');
+	            		showToast('', 'Vui lòng đăng nhập để thực hiện chức năng này', 'error');
 		            } else {
-		            	result.parent().parent().next().html('<h4>' + data.total + ' Comment</h4>');
-		            	result.parent().prev().children().val('');
+		            	$('.title').html('<h4>' + data.total +
+		            	' Comment</h4>');
+		            	result.prev().children().val('');
 		            	var str = '<div class="display-comment"><strong>' +
 		                data.name + '</strong> ';
 		                if (data.level == 1)
 		                	str += '<i title="Quản trị viên" class="fa fa-user"></i>';
-		                str += '<br>'+data.message+'<br>' +
-		    			'<span><a class="reply" value="' + data.comment_id + '"' +
-		    			'href="">Trả lời  </a></span>' +
-		    			'<span>' + data.date + '<span>' + '</div>';
-		                result.parent().parent().next().after(str);
-		                result.parent().parent().next().
-		                next().after('<br><div class="display-comment"><div id="div-' +
-		                data.comment_id + '" class="display-comment div-reply">' +
-		        		'<div class="form-group">' +
-		            	'<input id="input-' + data.comment_id + 
-		            	'" type="text" name="comment_body" ' +
-		            	'class="form-control" />' +
-		        		'</div>' +
-		        		'<div class="form-group">'+
-		            	'<input type="submit" comment="' + data.comment_id +'" post="' +
-		            	data.product_id + '" class="btn ' + 
-		            	'btn-warning submit-reply" value="Reply" />' +
-		       			'</div></div>' +
+		                str += '<br>'+data.message+'<br>';
+		    			str += '<span><a class="reply" value="' + data.comment_id + '"';
+		    			str += 'href="">Trả lời  </a></span>';
+		    			str += '<span>' + data.date + '<span>' + '</div>';
+		                $('.title').after(str);
+		                $('.title').next().after('<br>'+
+		                '<div class="display-comment">'+
+		                	'<div id="div-' +data.comment_id + 
+			                	'" class="display-comment div-reply">' +
+				        		'<div class="form-group">' +
+				            		'<input id="input-' + data.comment_id + 
+				            		'" type="text" name="comment_body" ' +
+				            		'class="form-control" />' +
+				        		'</div>' +
+				        		'<div class="form-group">'+
+				            		'<input type="submit" comment="' + data.comment_id +
+				            		'" post="' + data.product_id + '" class="btn ' + 
+				            		'btn-warning submit-reply" value="Reply" />' +
+				       			'</div>'+
+		       				'</div>' +
 		        		'</div>');
 		            }
 	            },
 	            error: function (request, status, error) {
-                    alert(error);
+                    showToast('', 'Không thể bình luận được', 'error');
+                    reLoad();
                 }
 	        });
     	}
@@ -107,12 +112,12 @@ $(window).on('load', function() {
 	                comment_id: comment_id,
 	                message: message,
 	            },
-	            success:function(data)
+	            success: function(data)
 	            {
 	                if (data == "error") {
 	            		window.location = "404.html";
 		            } else if ($.isEmptyObject(data)) {
-	            		alert('Vui lòng đăng nhập');
+	            		showToast('', 'Vui lòng đăng nhập để thực hiện chức năng này', 'warning');
 	            	} else {
 	            		$('div.title').html('<h4>' + data.total + ' Comment</h4>');
 	            		result.find('input[type="text"]').val('');
@@ -121,13 +126,14 @@ $(window).on('load', function() {
 		                data.name + '</strong> ';
 		                if (data.level == 1)
 		                	str += '<i title="Quản trị viên" class="fa fa-user"></i>';
-		                str += '<br>' + data.message +
-		                '<br><span>' + data.date + '<span><br><br>' + '</div>'
+		                str += '<br>' + data.message;
+		                str += '<br><span>' + data.date + '<span><br><br>' + '</div>'
 		                result.before(str);
 	            	}
 	            },
 	            error: function (request, status, error) {
-                    alert(error);
+                    showToast('', 'Không thể trả lời bình luận được', 'error');
+                    reLoad();
                 }
 	        });
         }

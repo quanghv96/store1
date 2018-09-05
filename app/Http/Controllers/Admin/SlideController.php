@@ -46,11 +46,10 @@ class SlideController extends Controller
      */
     public function store(SlideRequest $request)
     {
-        if ($request->hasFile('avatar')) {
-            $slide = $request->except('avatar');
-            $slide['image_link'] = $this->addImage($request->file('avatar'), $this->getPath());
-            Slide::create($slide);
-        }
+        $slide = $request->except('avatar');
+        $slide['image_link'] = $this->addImage($request->file('avatar'), $this->getPath());
+        Slide::create($slide);
+        
         return redirect()->route('slide.index')->with('success', __('Thêm slide thành công'));
     }
 
@@ -110,7 +109,7 @@ class SlideController extends Controller
     public function delete($id)
     {
         $slide = Slide::findOrFail($id);
-        $this->removeImage($slide->avatar, $this->getPath());
+        $this->removeImage($slide->image_link, $this->getPath());
         $slide->delete();
 
         return redirect()->route('slide.index')->with('success', __('Xóa thành công'));

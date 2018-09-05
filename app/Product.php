@@ -5,12 +5,20 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use willvincent\Rateable\Rateable;
+use Nicolaslopezj\Searchable\SearchableTrait;
 use DB;
 
 class Product extends Model
 {
-    use SoftDeletes, Rateable;
+    use SoftDeletes, Rateable, SearchableTrait;
     
+    protected $searchable = [
+        'columns' => [
+            'products.name' => 10,
+            'products.descript' => 5,
+        ]
+    ];
+
     protected $guarded = [];
 
     // lấy ra catalog của 1 product
@@ -56,17 +64,17 @@ class Product extends Model
     public function scopeSeggest($query, $key, $id)
     {
         if ($id == 0)
-            return $query->where('name', 'like', '%' . $key . '%');
+            return $query->where('name', 'ilike', '%' . $key . '%');
 
-        return $query->where('category_id', $id)->where('name', 'like', '%' . $key . '%');
+        return $query->where('category_id', $id)->where('name', 'ilike', '%' . $key . '%');
     }
 
-    public function scopeSearch($query, $key, $id)
+    public function scopeWhereCate($query, $id)
     {
         if ($id == 0)
-            return $query->where('name', 'like', '%' . $key . '%');
+            return $query;
 
-        return $query->where('category_id', $id)->where('name', 'like', '%' . $key . '%');
+        return $query->where('category_id', $id);
     }
 
     public function scopeSearchMul($query, $category_id, $price, $order)
@@ -105,7 +113,8 @@ class Product extends Model
 
     public function scopeGetTopSell()
     {
-        $temp = DB::table('products')->join('order_details', 'products.id', '=', 'order_details.product_id')
+        $temp = DB::table('products')
+            ->join('order_details', 'products.id', '=', 'order_details.product_id')
             ->join('orders', 'orders.id', '=', 'order_details.order_id')
             ->selectRaw('products.id, count(quantity) as total')
             ->where('orders.status', 'Thành công')

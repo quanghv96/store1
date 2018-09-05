@@ -39,6 +39,8 @@
 <script type="text/javascript" src="{{ asset('source/bower_components/library/backend/js/xuly.js') }}" type="text/javascript"></script>
 <script type="text/javascript" src="{{ asset('source/bower_components/library/backend/js/pusher.min.js') }}" type="text/javascript"></script>
 <script type="text/javascript" src="{{ asset('source/bower_components/library/backend/js/add-notification.js') }}" type="text/javascript"></script>
+<script type="text/javascript" src="{{ asset('source/bower_components/library/site/version4/js/toastr.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('source/bower_components/library/site/version4/js/add-toast.js') }}"></script>
 @yield('script')
 </body>
 </html>

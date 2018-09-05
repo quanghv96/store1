@@ -141,44 +141,42 @@
                                 <div class="tags">
                                     <form id="addTagForm" action="#" method="get">
                                         <div class="form-add-tags">
-                                            @if(count($product->configuration) > 0)
-                                                <table class="table table-condensed" style="width: 50%;">
-                                                    <tbody>
-                                                    <tr>
-                                                        <th class="col-lg-1 table-product">{{ __('Màn hình:') }}</th>
-                                                        <td class="col-lg-5 table-product">{{ $product->configuration->screen }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="col-lg-2 table-product">{{ __('Hệ điều hành:') }}</th>
-                                                        <td class="col-lg-5 table-product">{{ $product->configuration->os }}</td>
+                                            <table class="table table-condensed" style="width: 50%;">
+                                                <tbody>
+                                                <tr>
+                                                    <th class="col-lg-1 table-product">{{ __('Màn hình:') }}</th>
+                                                    <td class="col-lg-5 table-product">{{ $product->configuration->screen }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="col-lg-2 table-product">{{ __('Hệ điều hành:') }}</th>
+                                                    <td class="col-lg-5 table-product">{{ $product->configuration->os }}</td>
 
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="col-lg-1 table-product">{{ __('Camera sau:') }}</th>
-                                                        <td class="col-lg-5 table-product">{{ $product->configuration->back_camera }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="col-lg-1 table-product">{{ __('Camera sau:') }}</th>
+                                                    <td class="col-lg-5 table-product">{{ $product->configuration->back_camera }}</td>
 
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="col-lg-1 table-product">{{ __('Camera trước:') }}</th>
-                                                        <td class="col-lg-5 table-product">{{ $product->configuration->front_camera }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="col-lg-1 table-product">
-                                                        {{ __('Ram:') }}</td>
-                                                        <td class="col-lg-5 table-product">
-                                                        {{ $product->configuration->ram }}</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="col-lg-1 table-product">{{ __('Bộ nhớ trong:') }}</th>
-                                                        <td class="col-lg-5 table-product">{{ $product->configuration->memory }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="col-lg-1 table-product">{{ __('Dung lượng pin:') }}</th>
-                                                        <td class="col-lg-5 table-product">{{ $product->configuration->battery_capacity }}</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            @endif
+                                                </tr>
+                                                <tr>
+                                                    <th class="col-lg-1 table-product">{{ __('Camera trước:') }}</th>
+                                                    <td class="col-lg-5 table-product">{{ $product->configuration->front_camera }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="col-lg-1 table-product">
+                                                    {{ __('Ram:') }}</td>
+                                                    <td class="col-lg-5 table-product">
+                                                    {{ $product->configuration->ram }}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="col-lg-1 table-product">{{ __('Bộ nhớ trong:') }}</th>
+                                                    <td class="col-lg-5 table-product">{{ $product->configuration->memory }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="col-lg-1 table-product">{{ __('Dung lượng pin:') }}</th>
+                                                    <td class="col-lg-5 table-product">{{ $product->configuration->battery_capacity }}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </form>
                                 </div>
@@ -199,7 +197,7 @@
                                                     <input id="add-comment" type="submit" post="{{ $product->id }}" class="btn btn-warning" value="Post"/>
                                                 </div>
                                             </div>
-                                            @if(count($product->comments) > 0)
+                                            @if($product->comments->count() > 0)
                                                 <div class="title"><h4>{{ count($product->comments) }} {{ __('Comment') }} </h4></div>
                                             @else
                                                 <div class="title"><h5>Hãy là người đầu tiên bình luận sản phẩm</h5></div>

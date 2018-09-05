@@ -14,5 +14,6 @@
    <!--  <link rel="stylesheet" type="text/css" href="{{ asset('source/bower_components/library/backend/admin/crown/css/datatable.css') }}" /> -->
     <link rel="stylesheet" type="text/css" href="{{ asset('source/bower_components/library/backend/admin/crown/css/jquery.dataTables.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('source/bower_components/library/backend/admin/css/select2.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('source/bower_components/library/site/version4/css/toastr.min.css') }}">
     {!! Charts::assets() !!}
 </head>

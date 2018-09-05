@@ -9,9 +9,9 @@ $(document).ready(function(){
     var channel1 = pusher.subscribe('order-success');
     channel.bind('App\\Events\\NotifiOrderSuccess', function(data) {
         var newStr = '<li>' +
-                        '<a id="new_' + data.info.id + '" href="' + 
-                        data.info.link + '" title="" class="sAdd not_view new">'+
-                        data.info.title +
+                        '<a id="new_' + data.id + '" href="' + 
+                        data.link + '" title="" class="sAdd not_view new">'+
+                        data.title +
                         '<br>' + data.date +
                         '</a>' +
                     '</li>';

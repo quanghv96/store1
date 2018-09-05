@@ -10,17 +10,17 @@ use App\Events\OrderEvent;
 
 class NotificationController extends Controller
 {
-    public function view($id){
+    public function view($id)
+    {
     	$not = Notification::findOrFail($id);
         if ($not->status == 0) {
         	$not->update([
-        		'status' => 1
+        		'read_at' => now()
         	]);
             event( new OrderEvent('false', $id));
         }
-    	$order = Order::findOrFail($not->id_order);
     	
-    	return redirect()->route('order.detail', ['id' => $order->id]);
+    	return redirect()->route('order.detail', ['id' => $not->notifiable_id]);
 
     }
 
@@ -30,7 +30,7 @@ class NotificationController extends Controller
             event( new OrderEvent('true', null));
         }
         Notification::getNotifNew()->update([
-    		'status' => 1
+    		'read_at' => now()
     	]);
 
     	return redirect()->route('order.index'); 

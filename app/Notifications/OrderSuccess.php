@@ -7,19 +7,18 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class SendMailResetPassword extends Notification
+class OrderSuccess extends Notification
 {
     use Queueable;
 
-    protected $token;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($token)
+    public function __construct()
     {
-        $this->token = $token;
+        //
     }
 
     /**
@@ -30,7 +29,7 @@ class SendMailResetPassword extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -41,10 +40,10 @@ class SendMailResetPassword extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = url(config('app.base_url') . route('password.reset', $this->token, false));
         return (new MailMessage)
-                    ->subject('Thay đổi mật khẩu')
-                    ->markdown('site.customer.reset_password', ['url' => $url]);
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using our application!');
     }
 
     /**
@@ -56,7 +55,7 @@ class SendMailResetPassword extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'message' => 'Đơn hàng mới'
         ];
     }
 }
