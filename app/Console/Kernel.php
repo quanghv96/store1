@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Http\Controllers\CronController;
 
 class Kernel extends ConsoleKernel
 {
@@ -26,8 +27,11 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->command('delete:notification')
-            ->dailyAt('9:10');
+        // $schedule->command('delete:notification')
+        //     ->dailyAt('12:00');
+        $schedule->command('delete:notification')->everyMinute()->when(function() {
+            return CronController::task('delete:notification', 1440, '12:0');
+        });
     }
 
     /**

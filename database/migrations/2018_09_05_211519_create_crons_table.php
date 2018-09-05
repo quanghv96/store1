@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateContactsTable extends Migration
+class CreateCronsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateContactsTable extends Migration
      */
     public function up()
     {
-        Schema::create('contacts', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('user_name', 100);
-            $table->string('email');
-            $table->string('title', 100);
-            $table->text('content', 65535);
+        Schema::create('crons', function (Blueprint $table) {
+            $table->string('command');
+            $table->primary('command');
+            $table->integer('next_run');
+            $table->integer('last_run');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateContactsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contacts');
+        Schema::dropIfExists('crons');
     }
 }

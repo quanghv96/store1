@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Address;
+use Carbon\Carbon;
 
 class CustomerController extends Controller
 {
@@ -18,7 +19,6 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        
         $user = User::role(0)->get();
 
         return view('admin.customer.index', compact('user'));

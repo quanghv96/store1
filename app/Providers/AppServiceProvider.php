@@ -22,20 +22,20 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Schema::defaultStringLength(191);
-        $category = Category::all();
-        $product_sell = Product::getTopSell();
-        $cateS = Product::getAllCate();
-        $notification = Notification::getNotif();
-        $total_not = Notification::getTotal();
-        View::share(compact(
-            [
-                'category', 
-                'product_sell',
-                'notification',
-                'total_not',
-                'cateS'
-            ]
-        ));
+        // $category = Category::all();
+        // $product_sell = Product::getTopSell();
+        // $cateS = Product::getAllCate();
+        // $notification = Notification::getNotif();
+        // $total_not = Notification::getTotal();
+        // View::share(compact(
+        //     [
+        //         'category', 
+        //         'product_sell',
+        //         'notification',
+        //         'total_not',
+        //         'cateS'
+        //     ]
+        // ));
     }
 
     /**
